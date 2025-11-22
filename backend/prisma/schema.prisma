@@ -67,7 +67,7 @@ model User {
   id         Int    @id @default(autoincrement())
   email      String @unique
   username   String
-  password   String
+  passwordDigest   String
 
   // many-to-many self relations
   followedBy            Follows[]      @relation("followedBy")
