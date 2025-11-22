@@ -15,7 +15,12 @@ const SignUpForm = () => {
     }, []);
 
     // state variables to be used in this component
-    const [errorMessage, setErrorMessage] = useState(null);
+    const [errorMessages, setErrorMessages] = useState({
+        invalidPasswordMessage: '',
+        invalidUsernameMessage: '',
+        invalidEmailMessage: '',
+        databaseMessage: ''
+    });
     const [user, setUser] = useState({
         username: '',
         email: '',
@@ -28,10 +33,43 @@ const SignUpForm = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        // check username length and regex
+        // check username and password validity with regex
 
-        // check password validity
+        // these regex searches will ensure the passwrod and username adhere to the constraints presented in the form
+        const passwordSearch = user.password.search(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?\d)(?=.*?[!@#$%^&*()_\-+=[\]{}\\|:;"'<,>./?`~])[A-Za-z\d!@#$%^&*()_\-+=[\]{}\\|:;"'<,>./?`~]{8,20}$/);
+        const usernameSearch = user.username.search(/^[a-zA-Z][a-zA-Z\d\-_]{0,15}$/);
+        // check the email format with regex
+        // before user creation in backend, a validation email will be sent
+        // to the provided adress to ensure that the email exists
+        const emailSearch = user.email.search(/^\S+@\S+\.+\S$/);
+        
+        if (passwordSearch === -1 || usernameSearch === -1 || emailSearch === -1) {
+            if (passwordSearch === -1) {
+                setErrorMessages({
+                    ...errorMessages,
+                    invalidPasswordMessage: "The password you entered is not valid."
+                });
+            }
+            
+            if (usernameSearch === -1) {
+                setErrorMessages({
+                    ...errorMessages,
+                    invalidUsernameMessage: "The username you entered is not valid."
+                });
+            }
 
+            if (emailSearch === -1) {
+                setErrorMessages({
+                    ...errorMessages,
+                    invalidEmailMessage: "The email you entered is not valid."
+                });
+            }
+            
+            // break out of the submission before the fetch request
+            return;
+        }
+
+        
         // make POST request
         const res = await fetch(`${process.env.BACKEND_URL}/users/`, {
             method: 'POST',
@@ -41,31 +79,39 @@ const SignUpForm = () => {
             },
             body: JSON.stringify(user)
         });
-        const resData = await res.json();
+        const data = await res.json();
 
         // check for errors
         if (res.status === 200) {
             setCurrentUser(data.user);
             navigate('/');
         } else {
-            setErrorMessage(data.message);
+            if (data.error.invalidEmail) {
+                setErrorMessages({
+                    ...errorMessages,
+                    invalidEmailMessage: data.error.message
+                });
+            }
+            
+            if (data.error.invalidUsername) {
+                setErrorMessages({
+                    ...errorMessages,
+                    invalidUsernameMessage: data.error.message
+                });
+            }
+
+            if (data.error.databaseError) {
+                setErrorMessages({
+                    ...errorMessages,
+                    databaseMessage: data.error.message
+                })
+            }
         }
     }
 
     return (
         <div className="form">
             <h1>Sign Up for EDH Companion</h1>
-            
-            {/* check to see if there is an error to display */}
-            {
-                errorMessage === null
-                ? null
-                : (
-                    <div className="form-error">
-                        {errorMessage}
-                    </div>
-                  )
-            }
 
             <Form onSubmit={handleSubmit}>
                 <Form.Group>
@@ -92,7 +138,7 @@ const SignUpForm = () => {
                         name="username"
                     />
                     <Form.Text id="username-help-block" muted>
-                        Your username must be 16 characters or less, start with a letter, and must not contain spaces or emojis.
+                        Your username must be 16 characters or less, start with a letter, and must only contain letters, numbers, - and _.
                     </Form.Text>
                 </Form.Group>
                 <Form.Group>
