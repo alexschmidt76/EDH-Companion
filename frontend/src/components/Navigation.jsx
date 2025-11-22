@@ -1,8 +1,9 @@
 import { useContext } from "react";
+import { CurrentUser } from "../context/CurrentUser";
 import { Container, Navbar, Nav } from 'react-bootstrap';
 
 const Navigation = () => {
-    const { currentUser } = useContext(currentUser);
+    const { currentUser } = useContext(CurrentUser);
 
     const navBar = (
         <Navbar expand="lg">
@@ -25,7 +26,7 @@ const Navigation = () => {
                 }
             </Container>
         </Navbar>
-    )
+    );
 
     return navBar;
 }
