@@ -1,6 +1,7 @@
 import './App.css';
 import CurrentUserProvider from './context/CurrentUser';
 import Navigation from './components/Navigation';
+import Home from './components/Home';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 function App() {
