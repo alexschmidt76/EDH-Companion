@@ -34,8 +34,10 @@ users.post('/', async (req, res) => {
 
     if (foundUser) {
         res.status(403).json({
-            message: "A user with this email already exists.",
-            error: "invalid email"
+            error: {
+                invalidEmail: true,
+                message: 'A user with this email already exists.'
+            }
         });
     }
 
@@ -48,8 +50,10 @@ users.post('/', async (req, res) => {
 
     if (foundUser) {
         res.status(403).json({
-            message: "A user with this username already exists.",
-            error: "invalid username"
+            error: {
+                invalidUsername: true,
+                message: "A user with this username already exists."
+            }
         })
     }
 
@@ -67,8 +71,11 @@ users.post('/', async (req, res) => {
         res.json(newUser);
     } catch (error) {
         res.status(500).json({
-            message: "Database error, user not created.",
-            error: error
+            error: {
+                error,
+                databaseError: true,
+                message: "Database error, try again in a few moments."
+            }
         });
     }
 });
