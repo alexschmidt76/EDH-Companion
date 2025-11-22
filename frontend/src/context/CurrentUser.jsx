@@ -9,7 +9,7 @@ const CurrentUserProvider = ({ children }) => {
     const [currentUser, setCurrentUser] = useState(null);
 
     useEffect(() => {
-        fetch(`${process.env.REACT_APP_BACKEND_URL}/auth/current-user`, {
+        fetch(`${process.env.BACKEND_URL}/auth/current-user`, {
             credentials: 'include'
         })
             .then(res => res.json())

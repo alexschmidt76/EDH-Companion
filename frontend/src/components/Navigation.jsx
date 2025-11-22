@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { Container, Navbar, Nav } from 'react-bootstrap';
 
 const Navigation = () => {
-    const currentUser = useContext(currentUser);
+    const { currentUser } = useContext(currentUser);
 
     const navBar = (
         <Navbar expand="lg">
