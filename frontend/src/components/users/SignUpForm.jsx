@@ -122,11 +122,13 @@ const SignUpForm = () => {
                             <li>Uppercase Letter (A-Z)</li>
                             <li>Lowercase Letter (a-z)</li>
                             <li>Number (0-9)</li>
-                            <li>Special Character (!@#$%^&*()_-+=[]{}\|:;"'`{'<>'}`,.?/`~)</li>
+                            <li>Special Character (`{'!@#$%^&*()_-+=[]{}\|:;"\'<>,.?/`~'}`)</li>
                         </ul>
                     </Form.Text>
                 </Form.Group>
             </Form>
         </div>
-    )
+    );
 }
+
+export default SignUpForm;
