@@ -20,7 +20,7 @@ const Navigation = () => {
                     ) : (
                         <Nav>
                             <Nav.Link href="/login">Log In</Nav.Link>
-                            <Nav.Link href="/signup">Sign Up</Nav.Link>
+                            <Nav.Link href="/sign-up-form">Sign Up</Nav.Link>
                         </Nav>
                     )
                 }
