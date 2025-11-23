@@ -4,6 +4,18 @@ require('dotenv').config();
 const express = require('express');
 const app = express();
 
+const bodyParser = require('body-parser');
+const cors = require('cors');
+
+// express settings
+app.use(cors({
+    origin: process.env.FRONTEND_URL,
+    credentials: true
+}));
+app.use(express.static('public'));
+app.use(express.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+
 // define port
 const PORT = process.env.PORT || 3000;
 

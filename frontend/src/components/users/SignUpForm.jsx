@@ -122,6 +122,14 @@ const SignUpForm = () => {
     return (
         <div className="form">
             <h1>Sign Up for EDH Companion</h1>
+            {
+                errorMessages.databaseMessage.length
+                ? (
+                    <Alert key={'danger'} variant={'danger'}>
+                        {errorMessages.databaseMessage}
+                    </Alert>
+                ) : null
+            }
             <Form onSubmit={handleSubmit}>
                 <Form.Group>
                     <Form.Label>Email</Form.Label>
@@ -137,7 +145,7 @@ const SignUpForm = () => {
                     {
                         errorMessages.invalidEmailMessage.length
                         ? (
-                            <Alert key={danger} variant={danger}>
+                            <Alert key={'danger'} variant={'danger'}>
                                 {errorMessages.invalidEmailMessage}
                             </Alert>
                         ) : null
@@ -157,7 +165,7 @@ const SignUpForm = () => {
                     {
                         errorMessages.invalidUsernameMessage.length
                         ? (
-                            <Alert key={danger} variant={danger}>
+                            <Alert key={'danger'} variant={'danger'}>
                                 {errorMessages.invalidUsernameMessage}
                             </Alert>
                         ) : null
@@ -190,7 +198,7 @@ const SignUpForm = () => {
                     {
                         errorMessages.invalidPasswordMessage.length
                         ? (
-                            <Alert key={danger} variant={danger}>
+                            <Alert key={'danger'} variant={'danger'}>
                                 {errorMessages.invalidPasswordMessage}
                             </Alert>
                         ) : null
