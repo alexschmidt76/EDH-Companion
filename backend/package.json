@@ -11,16 +11,10 @@
   "license": "ISC",
   "type": "commonjs",
   "dependencies": {
-<<<<<<< HEAD
     "bcryptjs": "^3.0.3",
     "cors": "^2.8.5",
     "dotenv": "^17.2.3",
     "express": "^5.1.0",
     "sequelize": "^6.37.7"
-=======
-    "bcrypt": "^6.0.0",
-    "bcryptjs": "^3.0.3",
-    "express": "^5.1.0"
->>>>>>> 39081e75560a375faeb440f695b7e4a01a7fc3a1
   }
 }

@@ -1,8 +1,6 @@
-<<<<<<< HEAD
 // node dependencies
 import 'dotenv/config';
 import express from 'express';
-import bodyParser from 'body-parser';
 import cors from 'cors'
 
 // import controllers
@@ -16,8 +14,9 @@ app.use(cors({
     credentials: true
 }));
 app.use(express.static('public'));
+app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(bodyParser.json());
+
 
 // define port
 const PORT = process.env.PORT || 3000;
@@ -41,5 +40,3 @@ app.listen(PORT, () => {
 
 // export the Express API for Vercel
 module.exports = app;
-=======
->>>>>>> 39081e75560a375faeb440f695b7e4a01a7fc3a1
