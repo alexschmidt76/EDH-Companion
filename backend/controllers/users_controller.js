@@ -3,7 +3,12 @@ const users = require('express').Router();
 const bcrypt = require('bcryptjs');
 
 // import db
+<<<<<<< HEAD
 
+=======
+import { prisma } from '../../old-backend/lib/prisma.ts';
+const { User } = prisma;
+>>>>>>> 39081e75560a375faeb440f695b7e4a01a7fc3a1
 
 /* USER INFO ROUTES */
 

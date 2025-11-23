@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 // node dependencies
 import 'dotenv/config';
 import express from 'express';
@@ -40,3 +41,5 @@ app.listen(PORT, () => {
 
 // export the Express API for Vercel
 module.exports = app;
+=======
+>>>>>>> 39081e75560a375faeb440f695b7e4a01a7fc3a1
