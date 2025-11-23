@@ -69,6 +69,16 @@ const SignUpForm = () => {
             return;
         }
 
+        // check that the entered passwords match
+        if (user.password !== verifyPassword) {
+            setErrorMessages({
+                ...errorMessages,
+                invalidPasswordMessage: "The entered passwords do not match."
+            })
+
+            return;
+        }
+
         
         // make POST request
         const res = await fetch(`${process.env.BACKEND_URL}/users/`, {
@@ -112,7 +122,6 @@ const SignUpForm = () => {
     return (
         <div className="form">
             <h1>Sign Up for EDH Companion</h1>
-
             <Form onSubmit={handleSubmit}>
                 <Form.Group>
                     <Form.Label>Email</Form.Label>
@@ -125,6 +134,14 @@ const SignUpForm = () => {
                         id="email"
                         name="email"
                     />
+                    {
+                        errorMessages.invalidEmailMessage.length
+                        ? (
+                            <Alert key={danger} variant={danger}>
+                                {errorMessages.invalidEmailMessage}
+                            </Alert>
+                        ) : null
+                    }
                 </Form.Group>
                 <Form.Group>
                     <Form.Label>Username</Form.Label>
@@ -137,6 +154,14 @@ const SignUpForm = () => {
                         id="username"
                         name="username"
                     />
+                    {
+                        errorMessages.invalidUsernameMessage.length
+                        ? (
+                            <Alert key={danger} variant={danger}>
+                                {errorMessages.invalidUsernameMessage}
+                            </Alert>
+                        ) : null
+                    }
                     <Form.Text id="username-help-block" muted>
                         Your username must be 16 characters or less, start with a letter, and must only contain letters, numbers, - and _.
                     </Form.Text>
@@ -162,6 +187,14 @@ const SignUpForm = () => {
                         id="verify-password"
                         name="verify-password"
                     />
+                    {
+                        errorMessages.invalidPasswordMessage.length
+                        ? (
+                            <Alert key={danger} variant={danger}>
+                                {errorMessages.invalidPasswordMessage}
+                            </Alert>
+                        ) : null
+                    }
                     <Form.Text id="password-help-block" muted>
                         Your password must be 8-20 characters long, must not contail spaces or emoji, and must contain at least one of each of the following:
                         <ul id="password-requirement-list">
