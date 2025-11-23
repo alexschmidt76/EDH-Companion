@@ -1,11 +1,13 @@
 // node dependencies
-require('dotenv').config();
+import 'dotenv/config';
+import express from 'express';
+import bodyParser from 'body-parser';
+import cors from 'cors'
 
-const express = require('express');
+// import controllers
+import users from './controllers/users_controller.js';
+
 const app = express();
-
-const bodyParser = require('body-parser');
-const cors = require('cors');
 
 // express settings
 app.use(cors({
@@ -29,7 +31,7 @@ app.get('/', (req, res) => {
 });
 
 // controllers
-app.use('/users', require('./controllers/users_controller'));
+app.use('/users', users);
 //app.use('/auth', require('./controllers/auth_controller'));
 
 app.listen(PORT, () => {

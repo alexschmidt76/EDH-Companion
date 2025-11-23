@@ -3,8 +3,7 @@ const users = require('express').Router();
 const bcrypt = require('bcryptjs');
 
 // import db
-import { prisma } from '../prisma/prisma';
-const { User } = prisma;
+
 
 /* USER INFO ROUTES */
 
