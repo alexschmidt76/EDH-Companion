@@ -1,18 +1,10 @@
 'use strict';
-const {
-  Model
-} = require('sequelize');
+const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
-    static associate({ Game, UserGame, Pod, PodUser, UserFollower }) {
-      // define associations here
-      User.belongsToMany(Game, { through: UserGame });
-      User.belongsToMany(Pod, { through: PodUser });
+    static associate(models) {
+      User.belongsToMany(models.Game, { through: models.UserGame });
+      User.belongsToMany(models.Pod, { through: models.PodUser });
       User.belongsToMany(User, {
         as: "followers",
         through: UserFollower,
