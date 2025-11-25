@@ -11,7 +11,7 @@ const SignUpForm = () => {
 
     // make sure there isn't already a user signed in
     useEffect(() => {
-        if (currentUser) navigate('/my-profile');
+        if (currentUser) navigate('/home');
     }, []);
 
     // state variables to be used in this component
@@ -213,6 +213,7 @@ const SignUpForm = () => {
                         </ul>
                     </Form.Text>
                 </Form.Group>
+                <Button variant="primary" type="submit">Sign Up</Button>
             </Form>
         </div>
     );
