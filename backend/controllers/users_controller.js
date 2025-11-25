@@ -51,11 +51,19 @@ users.post('/', async (req, res) => {
     }
 
     // check if a user with this username already exists
-    foundUser = await User.findOne({
-        where: {
-            username: username
-        }
-    });
+    try{
+        foundUser = await User.findOne({
+            where: { username: username }
+        });
+    } catch (error) {
+        res.status(500).json({
+            error: {
+                error,
+                databaseError: true,
+                message: "Database error, try again in a few moments."
+            }
+        });
+    }
 
     if (foundUser) {
         res.status(403).json({

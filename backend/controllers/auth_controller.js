@@ -26,15 +26,17 @@ auth.post('/', async (req, res) => {
                 message: 'An account with this username/email does not exist.'
             }
         });
-    } else if (!await bcrypt.compare(req.body.password, user.passwordDigest)) {
+    } 
+    
+    if (!await bcrypt.compare(req.body.password, user.passwordDigest)) {
         res.status(404).json({
             error: {
                 invalidCredentials: true,
                 message: 'Incorrect Password'
             }
         })
-    } else {
-        // TO DO: sign in user to session here
-        res.status(200).json({ user });
     }
+    
+    // TO DO: sign in user to session here
+    res.status(200).json({ user });
 })
