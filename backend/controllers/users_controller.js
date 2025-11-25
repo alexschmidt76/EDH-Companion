@@ -8,7 +8,7 @@ const bcrypt = require('bcryptjs');
 
 users.get('/', async (req, res) => {
     try {
-        const foundUsers = await User.findMany();
+        const foundUsers = await User.findAll();
         res.json(foundUsers);
     } catch (error) {
         res.status(500).json({
@@ -24,7 +24,7 @@ users.post('/', async (req, res) => {
     let { password, email, username, ...rest } = req.body;
 
     // check if a user with this email already exists
-    let foundUser = await User.findUnique({
+    let foundUser = await User.findOne({
         where: {
             email: email
         }
