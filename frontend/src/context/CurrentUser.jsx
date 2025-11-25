@@ -10,7 +10,7 @@ const CurrentUserProvider = ({ children }) => {
     console.log('current user')
 
     useEffect(() => {
-        fetch(`${process.env.BACKEND_URL}/auth/current-user`, {
+        fetch(`${import.meta.env.BACKEND_URL}/auth/current-user`, {
             credentials: 'include'
         })
             .then(res => res.json())

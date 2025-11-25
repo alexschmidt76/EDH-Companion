@@ -81,7 +81,7 @@ const SignUpForm = () => {
 
         
         // make POST request
-        const res = await fetch(`${process.env.BACKEND_URL}/users/`, {
+        const res = await fetch(`${import.meta.env.BACKEND_URL}/users/`, {
             method: 'POST',
             credentials: 'include',
             headers: {
