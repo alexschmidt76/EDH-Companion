@@ -3,6 +3,8 @@ const users = require('express').Router();
 const bcrypt = require('bcryptjs');
 
 // import db
+const db = require('..models');
+const { User } = db;
 
 /* USER INFO ROUTES */
 
@@ -24,11 +26,20 @@ users.post('/', async (req, res) => {
     let { password, email, username, ...rest } = req.body;
 
     // check if a user with this email already exists
-    let foundUser = await User.findOne({
-        where: {
-            email: email
-        }
-    });
+    let foundUser = null
+    try{
+        foundUser = await User.findOne({
+            where: { email: email }
+        });
+    } catch (error) {
+        res.status(500).json({
+            error: {
+                error,
+                databaseError: true,
+                message: "Database error, try again in a few moments."
+            }
+        });
+    }
 
     if (foundUser) {
         res.status(403).json({
@@ -40,7 +51,7 @@ users.post('/', async (req, res) => {
     }
 
     // check if a user with this username already exists
-    foundUser = await User.findUnique({
+    foundUser = await User.findOne({
         where: {
             username: username
         }
