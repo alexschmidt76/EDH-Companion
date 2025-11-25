@@ -3,6 +3,11 @@ const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes, Pod, Game) => {
   class PodGame extends Model {}
   PodGame.init({
+    id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true
+    },
     PodId: {
       type: DataTypes.INTEGER,
       references: {

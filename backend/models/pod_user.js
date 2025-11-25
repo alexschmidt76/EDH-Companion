@@ -3,6 +3,11 @@ const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes, Pod, User) => {
   class PodUser extends Model {}
   PodUser.init({
+    id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true
+    },
     PodId: {
       type: DataTypes.INTEGER,
       references: {
