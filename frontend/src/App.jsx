@@ -9,7 +9,8 @@ import NavigationBar from './components/NavigationBar';
 import Home from './components/Home';
 import SignUpForm from './components/users/forms/SignUpForm';
 import LogInForm from './components/users/forms/LogInForm';
-import UserPage from './components/users/user_pages/UserPage'
+import UserPage from './components/users/user_pages/UserPage';
+import UserNotFoundPage from './UserNotFoundPage';
 
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
@@ -26,6 +27,7 @@ function App() {
             <Route exact path='/sign-up-form' element={<SignUpForm/>}/>
             <Route exact path='/log-in-form' element={<LogInForm/>}/>
             <Route exact path='/user-page/:username/:activePage' element={<UserPage/>}/>
+            <Route exact path='/user-page/user-not-found' element={<UserNotFoundPage/>}/>
           </Routes>
         </Router>
       </CurrentUserProvider>
