@@ -49,4 +49,4 @@ auth.post('/', async (req, res) => {
     
     // TO DO: sign in user to session here
     res.status(200).json({ user });
-})
+});
