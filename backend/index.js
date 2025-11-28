@@ -2,13 +2,23 @@
 import 'dotenv/config';
 import express from 'express';
 import cors from 'cors'
+import cookieSession from 'cookie-session';
 
 // import controllers
 import users from './controllers/users_controller.js';
+import auth from './controllers/auth_controller.js';
 
 const app = express();
 
 // express settings
+app.use(cookieSession({
+    name: 'session',
+    sameSite: false,
+    httpOnly: true,
+    secure: true,
+    keys: [process.env.SESSION_SECRET],
+    maxAge: 60 * 60 * 24 * 1000 // 24 hours
+}));
 app.use(cors({
     origin: process.env.FRONTEND_URL,
     credentials: true
@@ -32,8 +42,9 @@ app.get('/', (req, res) => {
 
 // controllers
 app.use('/users', users);
-//app.use('/auth', require('./controllers/auth_controller'));
+app.use('/auth', auth);
 
+// start listening for calls
 app.listen(PORT, () => {
     console.log(`Listening on PORT ${PORT}`);
 });

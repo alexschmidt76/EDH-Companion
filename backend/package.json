@@ -13,6 +13,7 @@
   "dependencies": {
     "@sequelize/postgres": "^7.0.0-alpha.47",
     "bcryptjs": "^3.0.3",
+    "cookie-session": "^2.1.1",
     "cors": "^2.8.5",
     "dotenv": "^17.2.3",
     "express": "^5.1.0",
