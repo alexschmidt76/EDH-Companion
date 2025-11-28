@@ -9,15 +9,25 @@ const User = require('../models/user');
 // authenticate user log in
 auth.post('/', async (req, res) => {
     // find user with matching email/username
-    const user = await User.findOne({
-        where: {
-            [Op.or]: [
-                { email: req.body.username }, 
-                { username: req.body.username }
-            ]
-        },
-        attributes: ['passwordDigest']
-    });
+    let user
+    try {
+        user = await User.findOne({
+            where: {
+                [Op.or]: [
+                    { email: req.body.username }, 
+                    { username: req.body.username }
+                ]
+            }
+        });
+     } catch (error) {
+        res.status(500).json({
+            error: {
+                error,
+                databaseError: true,
+                message: "Database error, try again in a few moments."
+            }
+        });
+     }
 
     if (!user) {
         res.status(404).json({
