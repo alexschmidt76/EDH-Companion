@@ -1,28 +1,64 @@
 import { CurrentUser } from "../../../context/CurrentUser";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import MyPage from './MyPage';
-import OtherUserPage from './OtherUserPage';
+import MyPageHeader from './MyPageHeader';
+import OtherUserPageHeader from './OtherUserPageHeader';
+import UserNotFoundPage from './UserNotFoundPage';
 
 const UserPage = () => {
     const { currentUser } = useContext(CurrentUser);
     const { username, activePage } = useParams(); // these params come from the path
     
-    // check if a user is looking at their own page or another user's page
-    if (currentUser.username === username) {
-        return (
-            <MyPage
-                activePage={activePage}
-            />
-        );
-    }
+    const [user, setUser] = useState(null);
+    const [isUser, setIsUser] = useState(false);
 
+    useEffect(() => {
+        // if there isn't an active user, get all of the required info of the user whose page this is
+        if (!currentUser) {
+            // try a fetch call to the api
+            (async () => {
+                try {
+                    const res = await fetch(`${import.meta.env.BACKEND_URL}/users/${username}`, {
+                        method: 'GET',
+                        credentials: 'include',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        }
+                    });
+                    const resData = await res.json();
+
+                    setIsUser(true);
+                    setUser(resData);
+                } catch (error) {
+                    console.error("Error fetching user", error);
+                }
+            })();
+        } else {
+            setIsUser(true);
+            setUser(currentUser);
+        }
+    }, []);
+    
     return (
-        <OtherUserPage
-            username={username}
-            activePage={activePage}
-        />
-    );
+        // check if the current user is veiwing their own page or another user's page
+        <div>
+            {
+                currentUser && currentUser.username === username
+                ? (
+                    <MyPageHeader/>
+                ) : (
+                    isUser
+                    ? (
+                        <OtherUserPageHeader
+                            user={user}
+                        />
+                    ) : (
+                        <UserNotFoundPage/>
+                    )
+                )
+            }
+        </div>
+    )
 }
 
 export default UserPage;

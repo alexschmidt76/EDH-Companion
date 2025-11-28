@@ -1,6 +1,9 @@
 import { Navbar, Nav, Container } from "react-bootstrap";
+import { useParams } from "react-router-dom";
 
-const UserPageNavBar = ({ username }) => {
+const UserPageNavBar = () => {
+    const { username } = useParams();
+
     return (
         <Navbar expand='lg'>
             <Container>
