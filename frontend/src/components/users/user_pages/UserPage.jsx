@@ -14,7 +14,7 @@ const UserPage = () => {
 
     useEffect(() => {
         // if there isn't an active user, get all of the required info of the user whose page this is
-        if (!currentUser) {
+        if (!currentUser || currentUser.username !== username) {
             // try a fetch call to the api
             (async () => {
                 try {
