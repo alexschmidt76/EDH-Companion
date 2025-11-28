@@ -25,7 +25,7 @@ function App() {
             <Route exact path='/home' element={<Home/>}/>
             <Route exact path='/sign-up-form' element={<SignUpForm/>}/>
             <Route exact path='/log-in-form' element={<LogInForm/>}/>
-            <Route exact path='/user-page/:username' element={<UserPage/>}/>
+            <Route exact path='/user-page/:username/:activePage' element={<UserPage/>}/>
           </Routes>
         </Router>
       </CurrentUserProvider>

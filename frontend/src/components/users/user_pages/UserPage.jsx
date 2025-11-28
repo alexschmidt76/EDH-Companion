@@ -5,11 +5,24 @@ import MyPage from './MyPage';
 import OtherUserPage from './OtherUserPage';
 
 const UserPage = () => {
-    // check if a user is looking at their own page or another user's page
     const { currentUser } = useContext(CurrentUser);
-    const { username } = useParams(); // this param comes from the path
-    if (currentUser.username === username) return (<MyPage/>);
-    return (<OtherUserPage/>);
+    const { username, activePage } = useParams(); // these params come from the path
+    
+    // check if a user is looking at their own page or another user's page
+    if (currentUser.username === username) {
+        return (
+            <MyPage
+                activePage={activePage}
+            />
+        );
+    }
+
+    return (
+        <OtherUserPage
+            username={username}
+            activePage={activePage}
+        />
+    );
 }
 
 export default UserPage;
