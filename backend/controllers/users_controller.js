@@ -120,4 +120,28 @@ users.post('/', async (req, res) => {
     }
 });
 
+// send a friend request
+users.post('/:username/send-friend-request', async (req, res) => {
+    // make sure there is a current user
+
+    // try to add a sent notification to the current user
+
+    // try to add a recieved notification to the user being sent the request
+});
+
+// accept a friend request
+users.post('/accempt-friend-request', async (req, res) => {
+    // make sure there is a current user
+
+    // try to find a friend request notification with provided id
+
+    // add the current user and the requesting user to eachothers' following and followed by fields
+
+    // delete the notification
+});
+
+// send a pod join invite
+
+// accept a pod join invite
+
 module.exports = users;
