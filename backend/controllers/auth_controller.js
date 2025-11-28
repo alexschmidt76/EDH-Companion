@@ -7,11 +7,11 @@ const { Op } = require('sequelize');
 const User = require('../models/user');
 
 // authenticate user log in
-auth.post('/', async (req, res) => {
+auth.post('/log-in', async (req, res) => {
     // find user with matching email/username in db
-    let user;
+    let foundUser;
     try {
-        user = await User.findOne({
+        foundUser = await User.findOne({
             where: {
                 [Op.or]: [
                     { email: req.body.username }, 
@@ -30,7 +30,7 @@ auth.post('/', async (req, res) => {
     }
 
     // confirm a user was found
-    if (!user) {
+    if (!foundUser) {
         res.status(404).json({
             error: {
                 invalidCredentials: true,
@@ -39,7 +39,7 @@ auth.post('/', async (req, res) => {
         });
     } 
     
-    if (!await bcrypt.compare(req.body.password, user.passwordDigest)) {
+    if (!await bcrypt.compare(req.body.password, foundUser.passwordDigest)) {
         res.status(404).json({
             error: {
                 invalidCredentials: true,
@@ -49,8 +49,8 @@ auth.post('/', async (req, res) => {
     }
 
     // log user in
-    req.session.userId = user.userId;
-    res.status(200).json({ user });
+    req.session.userId = foundUser.id;
+    res.status(200).json({ user: foundUser });
 });
 
 // log user out
@@ -72,9 +72,7 @@ auth.get('/current-user', async (req, res) => {
     if (req.session.userId) {
         try {
             const user = await User.findOne({
-                where: { 
-                    id: req.session.userId
-                }
+                where: { id: req.session.userId }
             });
     
             if (user) res.status(200).json(user);

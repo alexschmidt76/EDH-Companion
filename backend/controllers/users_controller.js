@@ -4,18 +4,33 @@ const bcrypt = require('bcryptjs');
 
 // import db
 const db = require('..models');
+const { where } = require('sequelize');
 const { User } = db;
 
 /* USER INFO ROUTES */
 
-users.get('/', async (req, res) => {
+// get a user by their username
+// this route is used to pull up another user's page, so the passwordDigest
+// field should not be pulled in the query
+users.get('/:username', async (req, res) => {
     try {
-        const foundUsers = await User.findAll();
-        res.json(foundUsers);
+        const foundUser = User.findOne({
+            where: { username: req.params.username },
+            attributes: { exclude: ['passwordDigest'] }
+        });
+
+        if (!foundUser) {
+            res.status(204).json(null)
+        }
+
+        res.status(200).json({ user: foundUser });
     } catch (error) {
         res.status(500).json({
-            message: 'Databass error',
-            error: error
+            error: {
+                error,
+                databaseError: true,
+                message: "Database error, try again in a few moments."
+            }
         });
     }
 });
@@ -26,10 +41,13 @@ users.post('/', async (req, res) => {
     let { password, email, username, ...rest } = req.body;
 
     // check if a user with this email already exists
+    // because the server only wants to know if there is a user with this
+    // email or username, no attributes of the user are needed
     let foundUser = null
     try{
         foundUser = await User.findOne({
-            where: { email: email }
+            where: { email: email },
+            attributes: []
         });
     } catch (error) {
         res.status(500).json({
@@ -53,7 +71,8 @@ users.post('/', async (req, res) => {
     // check if a user with this username already exists
     try{
         foundUser = await User.findOne({
-            where: { username: username }
+            where: { username: username },
+            attributes: []
         });
     } catch (error) {
         res.status(500).json({
@@ -84,8 +103,12 @@ users.post('/', async (req, res) => {
                 username,
                 passwordDigest: await bcrypt.hash(password, 10)
             }
-        })
-        res.json(newUser);
+        });
+
+        // do not send passwordDigest to frontend
+        delete newUser.passwordDigest;
+
+        res.json({ user: newUser });
     } catch (error) {
         res.status(500).json({
             error: {
