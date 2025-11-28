@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { CurrentUser } from "../../context/CurrentUser";
+import { CurrentUser } from "../../../context/CurrentUser";
 import { useNavigate } from "react-router-dom";
 import { Form, Button } from 'react-bootstrap';
 

@@ -1,7 +1,7 @@
 import { useState, useEffect, useContext } from "react";
 import { Form, Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import { CurrentUser } from "../../context/CurrentUser";
+import { CurrentUser } from "../../../context/CurrentUser";
 
 const LogInForm = () => {
     // imports

@@ -8,22 +8,24 @@ const NavigationBar = () => {
     return (
         <Navbar expand="lg">
             <Container>
-                {
-                    // check for a currently logged in user to decide which navbar to show
-                    currentUser
-                    ? (
-                        <Nav>
-                            <Nav.Link href="/my-pods">Pods</Nav.Link>
-                            <Nav.Link href="/log-new-game">Log a Game</Nav.Link>
-                            <Nav.Link href="/my-profile">{currentUser.username}</Nav.Link>
-                        </Nav>
-                    ) : (
-                        <Nav>
-                            <Nav.Link href="/log-in-form">Log In</Nav.Link>
-                            <Nav.Link href="/sign-up-form">Sign Up</Nav.Link>
-                        </Nav>
-                    )
-                }
+                <Navbar.Brand href='/home'>EDH Companion</Navbar.Brand>
+                <Navbar.Toggle aria-controls='basic-navbar-nav'/>
+                <Navbar.Collapse id='basic-navbar-nav'>
+                    <Nav>
+                        <Nav.Link href='/tracker'>Tracker</Nav.Link>
+                        {
+                            currentUser
+                            ? (
+                                <Nav.Link href={`/user-page/:${currentUser.username}`}>{currentUser.username}</Nav.Link>
+                            ) : (
+                                <div>
+                                    <Nav.Link href="/log-in-form">Log In</Nav.Link>
+                                    <Nav.Link href="/sign-up-form">Sign Up</Nav.Link>
+                                </div>
+                            )
+                        }
+                    </Nav>
+                </Navbar.Collapse>
             </Container>
         </Navbar>
     );

@@ -1,13 +1,19 @@
+// style sheet
 import './App.css';
+
+// context
 import CurrentUserProvider from './context/CurrentUser';
+
+// components
 import NavigationBar from './components/NavigationBar';
 import Home from './components/Home';
-import SignUpForm from './components/users/SignUpForm';
-import LogInForm from './components/users/LogInForm';
-import { BrowserRouter as Router, Routes, Route , useNavigate} from 'react-router-dom';
+import SignUpForm from './components/users/forms/SignUpForm';
+import LogInForm from './components/users/forms/LogInForm';
+import UserPage from './components/users/user_pages/UserPage'
+
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 function App() {
-  useNavigate()('/');
   return (
     <div className="App">
       <CurrentUserProvider>
@@ -19,6 +25,7 @@ function App() {
             <Route exact path='/home' element={<Home/>}/>
             <Route exact path='/sign-up-form' element={<SignUpForm/>}/>
             <Route exact path='/log-in-form' element={<LogInForm/>}/>
+            <Route exact path='/user-page/:username' element={<UserPage/>}/>
           </Routes>
         </Router>
       </CurrentUserProvider>
