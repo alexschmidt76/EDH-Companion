@@ -7,14 +7,24 @@ export const CurrentUser = createContext();
 
 const CurrentUserProvider = ({ children }) => {
     const [currentUser, setCurrentUser] = useState(null);
-    console.log('current user')
 
     useEffect(() => {
-        fetch(`${import.meta.env.BACKEND_URL}/auth/current-user`, {
-            credentials: 'include'
-        })
-            .then(res => res.json())
-            .then(resData => setCurrentUser(resData))
+        (async () => {
+            try {
+                const res = await fetch(`${import.meta.env.BACKEND_URL}/auth/current-user`, {
+                    method: 'GET',
+                    credentials: 'include',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+                const resData = await res.json();
+
+                setCurrentUser(resData);
+            } catch (error) {
+                console.error('Error fetching user', error);
+            }
+        })();
     }, []);
 
     return (
