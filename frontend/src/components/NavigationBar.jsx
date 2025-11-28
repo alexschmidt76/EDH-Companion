@@ -2,10 +2,10 @@ import { useContext } from "react";
 import { CurrentUser } from "../context/CurrentUser";
 import { Container, Navbar, Nav } from 'react-bootstrap';
 
-const Navigation = () => {
+const NavigationBar = () => {
     const { currentUser } = useContext(CurrentUser);
 
-    const navBar = (
+    return (
         <Navbar expand="lg">
             <Container>
                 {
@@ -27,8 +27,6 @@ const Navigation = () => {
             </Container>
         </Navbar>
     );
-
-    return navBar;
 }
 
-export default Navigation;
+export default NavigationBar;

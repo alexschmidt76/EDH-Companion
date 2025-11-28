@@ -1,6 +1,6 @@
 import './App.css';
 import CurrentUserProvider from './context/CurrentUser';
-import Navigation from './components/Navigation';
+import NavigationBar from './components/NavigationBar';
 import Home from './components/Home';
 import SignUpForm from './components/users/SignUpForm';
 import LogInForm from './components/users/LogInForm';
@@ -12,10 +12,11 @@ function App() {
     <div className="App">
       <CurrentUserProvider>
         <Router>
-          <Navigation/>
+          <NavigationBar/>
           <Routes>
+            {/* the paths '/' and '/home' will have the same destination */}
             <Route exact path='/' element={<Home/>}/>
-            <Route exact path="/home" element={<Home/>}/>
+            <Route exact path='/home' element={<Home/>}/>
             <Route exact path='/sign-up-form' element={<SignUpForm/>}/>
             <Route exact path='/log-in-form' element={<LogInForm/>}/>
           </Routes>
