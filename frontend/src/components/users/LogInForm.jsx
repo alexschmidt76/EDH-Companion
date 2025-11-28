@@ -5,7 +5,7 @@ import { CurrentUser } from "../../context/CurrentUser";
 
 const LogInForm = () => {
     // imports
-    const navigate = useNavigate;
+    const navigate = useNavigate();
     const { currentUser, setCurrentUser } = useContext(CurrentUser);
     
     // check if a user is already logged in
