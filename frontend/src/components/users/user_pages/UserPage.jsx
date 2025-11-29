@@ -1,7 +1,7 @@
 import { CurrentUser } from "../../../context/CurrentUser";
 import { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import MyPageHeader from './MyPageHeader';
+import CurrentUserPageHeader from './CurrentUserPageHeader';
 import OtherUserPageHeader from './OtherUserPageHeader';
 import UserPageNavBar from "./UserPageNavBar";
 import Games from '../Games';
@@ -16,6 +16,37 @@ const UserPage = () => {
     const { username, activePage } = useParams(); // these params come from the path
     
     const [user, setUser] = useState(null);
+
+    const showActivePage = () => {
+        switch (activePage) {
+            case null:
+            case 'games':
+                return (
+                    <Games
+                        user={user}
+                        view='user'
+                    />
+                );
+            case 'pods':
+                return (
+                    <Pods
+                        user={user}
+                    />
+                );
+            case 'friends':
+                return (
+                    <Friends
+                        user={user}
+                    />
+                );
+            case 'stats':
+                return (
+                    <UserStats
+                        user={user}
+                    />
+                );
+        }
+    }
 
     useEffect(() => {
         // redirect if no username was passed in the path parameters and there isnt a current user
@@ -56,7 +87,7 @@ const UserPage = () => {
                 {
                     currentUser && currentUser.username === username
                     ? (
-                        <MyPageHeader/>
+                        <CurrentUserPageHeader/>
                     ) : (
                         <OtherUserPageHeader
                             user={user}
@@ -67,30 +98,7 @@ const UserPage = () => {
             <UserPageNavBar/>
             {/* check which user info to show based on path parameteres, default info is games */}
             <div id='user-page-contents'>
-                {
-                    activePage === 'games' || !activePage
-                    ? (
-                        <Games
-                            user={user}
-                        />
-                    ) : (
-                        activePage === 'pods'
-                        ? (
-                            <Pods
-                                user={user}
-                            />
-                        ) : (
-                            activePage === 'stats'
-                            ? (
-                                <UserStats
-                                    user={user}
-                                />
-                            ) : (
-                                <Error404/>
-                            )
-                        )
-                    )
-                }
+                {showActivePage()}
             </div>
         </div>
     );
