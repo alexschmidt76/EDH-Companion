@@ -45,6 +45,9 @@ const UserPage = () => {
                         user={user}
                     />
                 );
+            default:
+                navigate('/Error404');
+                break;
         }
     }
 
