@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { CurrentUser } from "../../../context/CurrentUser";
 import { useNavigate } from "react-router-dom";
-import { Form, Button } from 'react-bootstrap';
+import { Form, Button, Alert } from 'react-bootstrap';
 
 const SignUpForm = () => {
     // for navigating user after submit
@@ -81,14 +81,30 @@ const SignUpForm = () => {
 
         
         // make POST request
-        const res = await fetch(`${import.meta.env.BACKEND_URL}/users/`, {
-            method: 'POST',
-            credentials: 'include',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(user)
-        });
+        let res;
+        try {
+            res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/users/`, {
+                method: 'POST',
+                credentials: 'include',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(user)
+            });
+        } catch (error) {
+            console.error({
+                message: 'error fetching data',
+                error
+            });
+
+            setErrorMessages({
+                ...errorMessages,
+                databaseMessage: 'error fetching data'
+            })
+
+            return;
+        }
+
         const data = await res.json();
 
         // check for errors

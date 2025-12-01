@@ -13,5 +13,7 @@ const CurrentUserPageHeader = () => {
                 <Button href={`/games/log-new-game`}>Log Game</Button>
             </ButtonToolbar>
         </div>
-    )
+    );
 }
+
+export default CurrentUserPageHeader;

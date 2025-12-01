@@ -10,7 +10,7 @@ import Home from './components/Home';
 import SignUpForm from './components/users/forms/SignUpForm';
 import LogInForm from './components/users/forms/LogInForm';
 import UserPage from './components/users/user_pages/UserPage';
-import UserNotFoundPage from './UserNotFoundPage';
+import UserNotFoundPage from './components/users/user_pages/UserNotFoundPage';
 
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 

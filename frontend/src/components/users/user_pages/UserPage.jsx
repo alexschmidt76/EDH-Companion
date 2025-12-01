@@ -4,10 +4,10 @@ import { useNavigate, useParams } from "react-router-dom";
 import CurrentUserPageHeader from './CurrentUserPageHeader';
 import OtherUserPageHeader from './OtherUserPageHeader';
 import UserPageNavBar from "./UserPageNavBar";
-import Games from '../Games';
-import Pods from '../Pods';
+import Games from '../../Games';
+import Pods from '../../Pods';
 import UserStats from './UserStats';
-import Error404 from '../Error404';
+//import Error404 from '../../Error404';
 
 const UserPage = () => {
     const navigate = useNavigate();
