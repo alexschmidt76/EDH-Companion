@@ -31,7 +31,7 @@ const sequelize = new Sequelize({
 /* MODEL CREATIONS FROM MODEL FILES */
 
 // create models for non-dependent tables
-['game', 'pod', 'user_follower', 'user'].forEach(file => {
+['game', 'pod', 'user_user', 'user'].forEach(file => {
   const model = require(path.join(__dirname, file))(sequelize, Sequelize.DataTypes);
   db[model.name] = model;
 });

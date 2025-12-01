@@ -15,7 +15,9 @@ const { User } = db;
 users.get('/:username', async (req, res) => {
     try {
         const foundUser = User.findOne({
-            where: { username: req.params.username },
+            where: { 
+                username: req.params.username
+            },
             attributes: { exclude: ['passwordDigest'] }
         });
 

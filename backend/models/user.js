@@ -4,39 +4,60 @@ module.exports = (sequelize, DataTypes) => {
   class User extends Model {
     static associate(models) {
       User.belongsToMany(models.Game, { 
-        as: 'games',
+        inverse: {
+          as: 'players',
+        },
         through: models.UserGame 
       });
 
       User.belongsToMany(models.Pod, { 
-        as: 'pods',
+        inverse: {
+          as: 'members'
+        },
         through: models.PodUser 
       });
 
       User.belongsToMany(User, {
-        as: "followers",
-        through: models.UserFollower,
-        foreignKey: 'FollowingId',
-        otherKey: 'FollowerID'
+        inverse: {
+          as: 'friends'
+        },
+        through: models.UserUser,
+        foreignKey: 'User1Id',
+        otherKey: 'User2Id'
       });
 
       User.belongsToMany(User, {
-        as: "following",
-        through: models.UserFollower,
-        foreignKey: "FollowerId",
-        otherKey: "FollowingId"
+        inverse: {
+          as: 'blockedBy'
+        },
+        through: models.UserUser,
+        foreignKey: 'BlockerId',
+        otherKey: 'BlockedId'
       });
+       
+      User.belongsToMany(User, {
+        inverse: {
+          as: 'blockedUsers'
+        },
+        through: models.UserUser,
+        foreignKey: 'BlockedId',
+        otherKey: 'BlockerId'
+      })
 
       User.belongsToMany(models.Notification, {
-        as: 'recievedNotifications',
-        through: models.Notification,
+        inverse: {
+          as: 'sentNotifications'
+        },
+        through: models.UserNotification,
         foreignKey: 'RecieverId',
         otherKey: 'SenderId'
       });
 
       User.belongsToMany(models.Notification, {
-        as: 'sentNotifications',
-        through: models.Notification,
+        inverse: {
+          as: 'recievedNotifications'
+        },
+        through: models.UserNotification,
         foreignKey: 'SenderId',
         otherKey: 'RecieverId'
       });

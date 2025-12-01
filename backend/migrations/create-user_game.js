@@ -29,6 +29,10 @@ module.exports = {
     isWinner: {
         type: Sequelize.BOOLEAN,
         defaultValue: false
+    },
+    isOwner: {
+      type: Sequelize.BOOLEAN,
+      defaultValue: false
     }
     });
   },

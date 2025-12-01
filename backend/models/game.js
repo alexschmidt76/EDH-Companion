@@ -3,8 +3,20 @@ const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class Game extends Model {
     static associate(models) {
-      Game.belongsToMany(models.User, { through: models.UserGame });
-      Game.belongsToMany(models.Pod, { through: models.PodGame });
+      Game.belongsToMany(models.User, { 
+        through: models.UserGame,
+        inverse: {
+          as: 'games'
+        }
+      });
+
+      Game.belongsTo(models.Pod, {
+        foreignKey: 'podId',
+        inverse: {
+          as: 'games',
+          type: 'hasMany'
+        }
+      });
     }
   }
   Game.init({
@@ -16,6 +28,22 @@ module.exports = (sequelize, DataTypes) => {
     logDate: {
       type: DataTypes.DATE,
       defaultValue: DataTypes.NOW
+    },
+    publicToAll: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: true
+    },
+    publicToFriendsOnly: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false
+    },
+    publicToPodOnly: {
+      defaultValue:false,
+      type: DataTypes.BOOLEAN
+    },
+    publicToPodAndFriendsOnly: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false
     }
   }, {
     sequelize,

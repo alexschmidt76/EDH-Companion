@@ -11,6 +11,22 @@ module.exports = {
       logDate: {
         type: Sequelize.DATE,
         defaultValue: Sequelize.NOW
+      },
+      publicToAll: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: true
+      },
+      publicToFriendsOnly: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: false
+      },
+      publicToPodOnly: {
+        defaultValue:false,
+        type: Sequelize.BOOLEAN
+      },
+      publicToPodAndFriendsOnly: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: false
       }
       });
   },

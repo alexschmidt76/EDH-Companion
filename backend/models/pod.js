@@ -3,8 +3,18 @@ const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class Pod extends Model {
     static associate(models) {
-      Pod.belongsToMany(models.User, { through: models.PodUser });
-      Pod.belongsToMany(models.Game, { through: models.PodGame });
+      Pod.belongsToMany(models.User, { 
+        inverse: {
+          as: 'Pods'
+        },
+        through: models.PodUser 
+      });
+      Pod.hasMany(models.Game, {
+        foreignKey: 'podId',
+        inverse: {
+          as: 'Pod'
+        }
+      });
     }
   }
   Pod.init({

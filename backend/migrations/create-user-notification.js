@@ -2,27 +2,27 @@
 /** @type {import('sequelize-cli'),Migration} */
 module.exports = {
     async up(queryInterface, Sequelize) {
-        await queryInterface.createTable('Notification', {
+        await queryInterface.createTable('UserNotification', {
             id: {
                 type: Sequelize.INTEGER,
                 primaryKey: true,
                 autoIncrement: true
             },
             sentDate: {
-                type: DataTypes.DATE,
-                defaultValue: DataTypes.NOW
+                type: Sequelize.DATE,
+                defaultValue: Sequelize.NOW
             },
             podRequest: {
-                type: DataTypes.BOOLEAN,
+                type: Sequelize.BOOLEAN,
                 defaultValue: false
             },
             friendRequest: {
-                type: DataTypes.BOOLEAN,
+                type: Sequelize.BOOLEAN,
                 defaultValue: false
             }
         });
     },
     async down(queryInterface, Sequelize) {
-        await queryInterface.dropTable('Notification');
+        await queryInterface.dropTable('UserNotification');
     }
 };

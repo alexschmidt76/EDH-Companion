@@ -30,22 +30,13 @@ auth.post('/log-in', async (req, res) => {
     }
 
     // confirm a user was found
-    if (!foundUser) {
+    if (!foundUser || !await bcrypt.compare(req.body.password, foundUser.passwordDigest)) {
         res.status(404).json({
             error: {
                 invalidCredentials: true,
                 message: 'There is no account with this combination of username/email and password.'
             }
         });
-    } 
-    
-    if (!await bcrypt.compare(req.body.password, foundUser.passwordDigest)) {
-        res.status(404).json({
-            error: {
-                invalidCredentials: true,
-                message: 'There is no account with this combination of username/email and password.'
-            }
-        })
     }
 
     // log user in

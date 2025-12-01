@@ -25,6 +25,10 @@ module.exports = (sequelize, DataTypes, User, Game) => {
     isWinner: {
         type: DataTypes.BOOLEAN,
         defaultValue: false
+    },
+    isOwner: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false
     }
   }, {
     sequelize,
