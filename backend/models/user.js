@@ -1,6 +1,6 @@
 'use strict';
 const { Model } = require('sequelize');
-module.exports = (sequelize, DataTypes) => {
+const User = (sequelize, DataTypes) => {
   class User extends Model {
     static associate(models) {
       User.belongsToMany(models.Game, { 
@@ -95,3 +95,4 @@ module.exports = (sequelize, DataTypes) => {
   });
   return User;
 };
+export default User;

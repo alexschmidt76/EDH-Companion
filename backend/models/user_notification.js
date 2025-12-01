@@ -1,6 +1,6 @@
 'use strict';
 const { Model } = require('sequelize');
-module.exports = (sequelize, DataTypes) => {
+const UserNotification = (sequelize, DataTypes) => {
     class UserNotification extends Model {
         static associate(models) {
             UserNotification.belongsTo(models.User, { foreignKey: 'SenderId' });
@@ -31,3 +31,4 @@ module.exports = (sequelize, DataTypes) => {
     });
     return UserNotification;
 }
+export default UserNotification;

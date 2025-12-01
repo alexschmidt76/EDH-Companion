@@ -1,5 +1,5 @@
 // node dependencies
-import 'dotenv/config';
+import 'dotenv';
 import express from 'express';
 import cors from 'cors'
 import cookieSession from 'cookie-session';

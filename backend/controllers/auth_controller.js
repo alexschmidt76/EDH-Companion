@@ -1,10 +1,13 @@
 // node dependencies
-const bcrypt = require('bcryptjs');
-const auth = require('express').Router();
-const { Op } = require('sequelize');
+import bcrypt from 'bcryptjs';
+import express from 'express';
+import { Op } from 'sequelize';
 
-// import db
-const User = require('../models/user');
+// import User model
+import User from '../models/user';
+
+// define auth router
+const auth = express.Router();
 
 // authenticate user log in
 auth.post('/log-in', async (req, res) => {
@@ -79,4 +82,6 @@ auth.get('/current-user', async (req, res) => {
     }
 
     res.status(204).json(null);
-})
+});
+
+export default auth;

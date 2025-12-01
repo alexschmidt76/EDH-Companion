@@ -1,11 +1,12 @@
 // node dependencies
-const users = require('express').Router();
-const bcrypt = require('bcryptjs');
+import bcrypt from 'bcryptjs';
+import express from 'express';
 
-// import db
-const db = require('..models');
-const { where } = require('sequelize');
-const { User } = db;
+// define users route
+const users = express.Router();
+
+// import db models
+import User from '../models/user';
 
 /* USER INFO ROUTES */
 
@@ -146,4 +147,4 @@ users.post('/accempt-friend-request', async (req, res) => {
 
 // accept a pod join invite
 
-module.exports = users;
+export default users;
