@@ -1,6 +1,6 @@
 'use strict';
-const { Model } = require('sequelize');
-module.exports = (sequelize, DataTypes) => {
+import { Model } from 'sequelize';
+const PodUser = (sequelize, DataTypes) => {
   class PodUser extends Model {
     static associate(models) {
       PodUser.belongsTo(models.Pod, { foreignKey: 'PodId' });
@@ -29,3 +29,5 @@ module.exports = (sequelize, DataTypes) => {
   });
   return PodUser;
 };
+
+export default PodUser;

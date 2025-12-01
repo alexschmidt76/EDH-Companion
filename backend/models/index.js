@@ -1,21 +1,27 @@
 'use strict';
 
-const fs = require('fs');
-const path = require('path');
-const Sequelize = require('sequelize');
-const process = require('process');
-const env = process.env.NODE_ENV || 'development';
-//const config = require(__dirname + '/../config/config.json')[env];
-const db = {};
+// import node modules
+import fs from 'fs';
+import path from 'path';
+import Sequelize from 'sequelize';
+import process from 'process';
 
-// connect to sequelize
+
+// may use these on production deployment for connecting to sequelize
+//const env = process.env.NODE_ENV || 'development';
+//const config = require(__dirname + '/../config/config.json')[env];
 /*let sequelize;
 if (config.use_env_variable) {
   sequelize = new Sequelize(process.env[config.use_env_variable], config);
-} else {
-  sequelize = new Sequelize(config.database, config.username, config.password, config);
+  } else {
+    sequelize = new Sequelize(config.database, config.username, config.password, config);
 }*/
 
+// initialize db object
+const db = {};
+
+
+// connect to sequelize
 const sequelize = new Sequelize({
   username: process.env.DEVELOPMENT_DATABASE_USERNAME,
   password: process.env.DEVELOPMENT_DATABASE_PASSWORD,
@@ -47,4 +53,4 @@ Object.keys(db).forEach(modelName => {
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
-module.exports = db;
+export default db;

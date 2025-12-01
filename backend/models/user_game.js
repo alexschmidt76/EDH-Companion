@@ -1,6 +1,6 @@
 'use strict';
-const { Model } = require('sequelize');
-module.exports = (sequelize, DataTypes) => {
+import { Model } from 'sequelize';
+const UserGame = (sequelize, DataTypes) => {
   class UserGame extends Model {
     static associate(models) {
       UserGame.belongsTo(models.User, { foreignKey: 'UserId' });
@@ -27,3 +27,4 @@ module.exports = (sequelize, DataTypes) => {
   });
   return UserGame;
 };
+export default UserGame;
