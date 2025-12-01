@@ -12,18 +12,18 @@ module.exports = {
       type: Sequelize.INTEGER,
       references: {
         model: {
-            tableName: 'Pods'
+            tableName: 'Pods',
+            key: 'id'
           },
-        key: 'id'
       }
     },
     UserId: {
       type: Sequelize.INTEGER,
       references: {
         model: {
-            tableName: 'Users'
+            tableName: 'Users',
+            key: 'id'
           },
-        key: 'id'
       }
     },
     isOwner: {
@@ -37,6 +37,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('PodUsers');
+    await queryInterface.dropTable('PodUser');
   }
 };

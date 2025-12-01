@@ -7,11 +7,13 @@ module.exports = (sequelize, DataTypes) => {
         through: models.UserGame,
         inverse: {
           as: 'games'
-        }
+        },
+        foreignKey: 'GameId',
+        otherKey: 'UserId'
       });
 
       Game.belongsTo(models.Pod, {
-        foreignKey: 'podId',
+        foreignKey: 'PodId',
         inverse: {
           as: 'games',
           type: 'hasMany'

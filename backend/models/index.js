@@ -1,5 +1,6 @@
 'use strict';
 
+const fs = require('fs');
 const path = require('path');
 const Sequelize = require('sequelize');
 const process = require('process');
@@ -30,21 +31,13 @@ const sequelize = new Sequelize({
 
 /* MODEL CREATIONS FROM MODEL FILES */
 
-// create models for non-dependent tables
-['game', 'pod', 'user_user', 'user'].forEach(file => {
+// initialize models and add them to db
+fs.readdirSync().forEach(file => {
   const model = require(path.join(__dirname, file))(sequelize, Sequelize.DataTypes);
   db[model.name] = model;
 });
 
-// create models for dependent tables, these require other models to be passed to them to be created
-[
-  require(path.join(__dirname, 'pod_game'))(sequelize, Sequelize.DataTypes, db['Pod'], db['Game']),
-  require(path.join(__dirname, 'pod_user'))(sequelize, Sequelize.DataTypes, db['Pod'], db['User']),
-  require(path.join(__dirname, 'user_game'))(sequelize, Sequelize.DataTypes, db['User'], db['Game'])
-].forEach(model => {
-    db[model.name] = model
-});
-
+// run model association functions
 Object.keys(db).forEach(modelName => {
   if (db[modelName].associate) {
     db[modelName].associate(db);

@@ -1,8 +1,13 @@
 'use strict';
 const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-    class Notification extends Model {}
-    Notification.init({
+    class UserNotification extends Model {
+        static associate(models) {
+            UserNotification.belongsTo(models.User, { foreignKey: 'SenderId' });
+            UserNotification.belongsTo(models.User, { foreignKey: 'RecieverId'});
+        }
+    }
+    UserNotification.init({
         id: {
             type: DataTypes.INTEGER,
             primaryKey: true,
@@ -22,7 +27,7 @@ module.exports = (sequelize, DataTypes) => {
         }
     }, {
         sequelize,
-        modelName: 'Notification'
+        modelName: 'UserNotification'
     });
-    return Notification;
+    return UserNotification;
 }

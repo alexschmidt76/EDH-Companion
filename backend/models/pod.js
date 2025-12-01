@@ -7,10 +7,13 @@ module.exports = (sequelize, DataTypes) => {
         inverse: {
           as: 'Pods'
         },
-        through: models.PodUser 
+        through: models.PodUser,
+        foreignKey: 'PodId',
+        otherKey: 'UserId'
       });
+
       Pod.hasMany(models.Game, {
-        foreignKey: 'podId',
+        foreignKey: 'PodId',
         inverse: {
           as: 'Pod'
         }

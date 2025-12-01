@@ -7,21 +7,25 @@ module.exports = (sequelize, DataTypes) => {
         inverse: {
           as: 'players',
         },
-        through: models.UserGame 
+        through: models.UserGame,
+        foreignKey: 'UserId',
+        otherKey: 'GameId'
       });
 
       User.belongsToMany(models.Pod, { 
         inverse: {
           as: 'members'
         },
-        through: models.PodUser 
+        through: models.PodUser,
+        foreignKey: 'UserId',
+        otherKey: 'PodId'
       });
 
       User.belongsToMany(User, {
         inverse: {
           as: 'friends'
         },
-        through: models.UserUser,
+        through: models.UserFriend,
         foreignKey: 'User1Id',
         otherKey: 'User2Id'
       });
@@ -30,7 +34,7 @@ module.exports = (sequelize, DataTypes) => {
         inverse: {
           as: 'blockedBy'
         },
-        through: models.UserUser,
+        through: models.UserBlocked,
         foreignKey: 'BlockerId',
         otherKey: 'BlockedId'
       });
@@ -39,7 +43,7 @@ module.exports = (sequelize, DataTypes) => {
         inverse: {
           as: 'blockedUsers'
         },
-        through: models.UserUser,
+        through: models.UserBlocked,
         foreignKey: 'BlockedId',
         otherKey: 'BlockerId'
       })

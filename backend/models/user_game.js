@@ -1,26 +1,17 @@
 'use strict';
 const { Model } = require('sequelize');
-module.exports = (sequelize, DataTypes, User, Game) => {
-  class UserGame extends Model {}
+module.exports = (sequelize, DataTypes) => {
+  class UserGame extends Model {
+    static associate(models) {
+      UserGame.belongsTo(models.User, { foreignKey: 'UserId' });
+      UserGame.belongsTo(models.Game, { foreignKey: 'GameId' });
+    }
+  }
   UserGame.init({
     id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true
-    },
-    UserId: {
-      type: DataTypes.INTEGER,
-      references: {
-        model: User,
-        key: 'id'
-      }
-    },
-    GameId: {
-      type: DataTypes.INTEGER,
-      references: {
-        model: Game,
-        key: 'id'
-      }
     },
     isWinner: {
         type: DataTypes.BOOLEAN,

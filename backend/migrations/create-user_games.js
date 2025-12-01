@@ -8,33 +8,37 @@ module.exports = {
         primaryKey: true,
         autoIncrement: true
       },
+
       UserId: {
       type: Sequelize.INTEGER,
       references: {
         model: {
-            tableName: 'Users'
-          },
-        key: 'id'
+          tableName: 'Users',
+          key: 'id'
+        }
       }
-    },
-    GameId: {
-      type: Sequelize.INTEGER,
-      references: {
-        model: {
-            tableName: 'Games'
-          },
-        key: 'id'
-      }
-    },
-    isWinner: {
+      },
+
+      GameId: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: {
+            tableName: 'Games',
+            key: 'id'
+          }
+        }
+      },
+
+      isWinner: {
         type: Sequelize.BOOLEAN,
         defaultValue: false
-    },
-    isOwner: {
-      type: Sequelize.BOOLEAN,
-      defaultValue: false
-    }
-    });
+      },
+
+      isOwner: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: false
+      }
+      });
   },
   async down(queryInterface, Sequelize) {
     await queryInterface.dropTable('UserGames');

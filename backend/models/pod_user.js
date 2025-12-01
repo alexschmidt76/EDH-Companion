@@ -1,31 +1,24 @@
 'use strict';
 const { Model } = require('sequelize');
-module.exports = (sequelize, DataTypes, Pod, User) => {
-  class PodUser extends Model {}
+module.exports = (sequelize, DataTypes) => {
+  class PodUser extends Model {
+    static associate(models) {
+      PodUser.belongsTo(models.Pod, { foreignKey: 'PodId' });
+      PodUser.belongsTo(models.User, { foreignKey: 'UserId' });
+    }
+  }
   PodUser.init({
     id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true
     },
-    PodId: {
-      type: DataTypes.INTEGER,
-      references: {
-        model: Pod,
-        key: 'id'
-      }
-    },
-    UserId: {
-      type: DataTypes.INTEGER,
-      references: {
-        model: User,
-        key: 'id'
-      }
-    },
+
     isOwner: {
       type: DataTypes.BOOLEAN,
       defaultValue: false
     },
+
     joinDate: {
         type: DataTypes.DATE,
         defaultValue: DataTypes.NOW

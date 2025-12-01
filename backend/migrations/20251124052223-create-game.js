@@ -8,6 +8,15 @@ module.exports = {
         primaryKey: true,
         autoIncrement: true
       },
+      PodId: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: {
+            tableName: 'Pods',
+            key: 'id'
+          }
+        }
+      },
       logDate: {
         type: Sequelize.DATE,
         defaultValue: Sequelize.NOW
@@ -31,6 +40,6 @@ module.exports = {
       });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Games');
+    await queryInterface.dropTable('Gamess');
   }
 };
