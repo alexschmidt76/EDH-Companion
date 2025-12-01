@@ -10,11 +10,11 @@ import User from '../models/user';
 const auth = express.Router();
 
 // authenticate user log in
-auth.post('/log-in', async (req, res) => {
+auth.post('/log-in', async (req, res) => { 
     // find user with matching email/username in db
-    let foundUser;
+    let user;
     try {
-        foundUser = await User.findOne({
+        user = await User.findOne({ 
             where: {
                 [Op.or]: [
                     { email: req.body.username }, 
@@ -33,7 +33,7 @@ auth.post('/log-in', async (req, res) => {
     }
 
     // confirm a user was found
-    if (!foundUser || !await bcrypt.compare(req.body.password, foundUser.passwordDigest)) {
+    if (!user || !await bcrypt.compare(req.body.password, user.passwordDigest)) {
         res.status(404).json({
             error: {
                 invalidCredentials: true,
@@ -43,8 +43,8 @@ auth.post('/log-in', async (req, res) => {
     }
 
     // log user in
-    req.session.userId = foundUser.id;
-    res.status(200).json({ user: foundUser });
+    req.session.userId = user.id;
+    res.status(200).json({ user });
 });
 
 // log user out
@@ -66,7 +66,8 @@ auth.get('/current-user', async (req, res) => {
     if (req.session.userId) {
         try {
             const user = await User.findOne({
-                where: { id: req.session.userId }
+                where: { id: req.session.userId },
+                attributes: { exlude: [ 'passwordDigest' ] }
             });
     
             if (user) res.status(200).json(user);
