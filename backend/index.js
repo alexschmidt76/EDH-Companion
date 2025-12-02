@@ -23,6 +23,11 @@ app.use(cors({
     origin: process.env.FRONTEND_URL,
     credentials: true
 }));
+app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', process.env.FRONTEND_URL);
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requeste-With, Content-Type, Accept");
+    next();
+});
 app.use(express.static('public'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
