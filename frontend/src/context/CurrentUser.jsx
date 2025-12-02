@@ -11,7 +11,7 @@ const CurrentUserProvider = ({ children }) => {
     useEffect(() => {
         (async () => {
             try {
-                const res = await fetch(`${import.meta.env.BACKEND_URL}/auth/current-user`, {
+                const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/auth/current-user`, {
                     method: 'GET',
                     credentials: 'include',
                     headers: {
