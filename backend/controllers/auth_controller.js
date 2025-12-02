@@ -4,7 +4,7 @@ import express from 'express';
 import { Op } from 'sequelize';
 
 // import User model
-import User from '../models/user';
+import User from '../models/user.js';
 
 // define auth router
 const auth = express.Router();
@@ -67,7 +67,12 @@ auth.get('/current-user', async (req, res) => {
         try {
             const user = await User.findOne({
                 where: { id: req.session.userId },
-                attributes: { exlude: [ 'passwordDigest' ] }
+                attributes: { 
+                    include: [
+                        UserNotification
+                    ],
+                    exlude: [ 'passwordDigest' ] 
+                }
             });
     
             if (user) res.status(200).json(user);

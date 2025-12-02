@@ -1,6 +1,6 @@
 'use strict';
 import { Model } from 'sequelize';
-const UserBlocked = (sequelize, DataTypes) => {
+export default  (sequelize, DataTypes) => {
   class UserBlocked extends Model {
     static associate(models) {
       UserBlocked.belongsTo(models.User, { foreignKey: 'BlockerId' });
@@ -23,4 +23,3 @@ const UserBlocked = (sequelize, DataTypes) => {
   });
   return UserBlocked;
 };
-export default UserBlocked;

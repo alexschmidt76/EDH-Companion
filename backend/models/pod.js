@@ -1,6 +1,6 @@
 'use strict';
 import { Model } from 'sequelize';
-const Pod = (sequelize, DataTypes) => {
+export default  (sequelize, DataTypes) => {
   class Pod extends Model {
     static associate(models) {
       Pod.belongsToMany(models.User, { 
@@ -41,4 +41,3 @@ const Pod = (sequelize, DataTypes) => {
   return Pod;
 };
 
-export default Pod;

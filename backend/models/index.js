@@ -5,7 +5,10 @@ import fs from 'fs';
 import path from 'path';
 import Sequelize from 'sequelize';
 import process from 'process';
+import { createRequire } from 'module';
 
+// node module-related variables
+const require = createRequire(import.meta.url);
 
 // may use these on production deployment for connecting to sequelize
 //const env = process.env.NODE_ENV || 'development';

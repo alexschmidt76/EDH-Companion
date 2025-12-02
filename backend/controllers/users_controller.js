@@ -2,11 +2,11 @@
 import bcrypt from 'bcryptjs';
 import express from 'express';
 
+// import db models
+import User from '../models/user.js';
+
 // define users route
 const users = express.Router();
-
-// import db models
-import User from '../models/user';
 
 /* USER INFO ROUTES */
 
@@ -42,6 +42,7 @@ users.get('/:username', async (req, res) => {
 users.post('/', async (req, res) => {
     // get info from post request
     let { password, email, username, ...rest } = req.body;
+    console.log('post to /users made')
 
     // check if a user with this email already exists
     // because the server only wants to know if there is a user with this

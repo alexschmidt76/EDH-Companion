@@ -50,4 +50,4 @@ app.listen(PORT, () => {
 });
 
 // export the Express API for Vercel
-module.exports = app;
+export default app;
